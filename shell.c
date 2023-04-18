@@ -29,6 +29,7 @@ int main(void)
 		break;
 	buffer[strcspn(buffer, "\n")] = '\0';
 
+	char *_strtok(char *str, const char *delim);
 	buffer_cpy = strdup(buffer);
 	child = fork();
 	if (child == -1)
