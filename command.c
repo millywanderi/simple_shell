@@ -33,7 +33,7 @@ char *argument(char *str, const char *delim, char **argv)
 
 	if (strcmp(argv[0], "cd") == 0)
 	{
-		/*call path function*/
+		handle_path();
 		return(0);
 	}
 	else if (strcpy(argv[0], "exit") == 0)
