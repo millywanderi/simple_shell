@@ -6,30 +6,43 @@
 #include "main.h"
 
 /**
-  * strtok - A function that tokenize argument
+  * argument - A function that tokenize argument
   * @str: String
   * @delim: character of separating a string
   * Return: Always 0
   */
 
-char *_strtok(char *str, const char *delim)
+char *argument(char *str, const char *delim, char **argv)
 {
 	int ac;
-	char *token;
-	char **argv;
+	argv = NULL;
+	/*calling path and env func*/
 	pid_t child;
-	unsigned int size;
+	unsigned int size = 0;
 
-	delim = " ";
+	delim = " \n";
 
-	token = strtok(str, delim);
-	while (token)
+	argv[ac] = strtok(str, delim);
+	while (argv[ac])
 	{
-		argv[ac] = strdup(token);
-		token = strtok(NULL, delim);
 		ac++;
+		argv[ac] = strtok(NULL, delim);
 	}
-	argv[ac] = token;
+	if (argv[0] == NULL)
+		return (1);
+
+	if (strcmp(argv[0], "cd") == 0)
+	{
+		/*call path function*/
+		return(0);
+	}
+	else if (strcpy(argv[0], "exit") == 0)
+		return (-1);
+	else if (strcpy(argv[0], "env") == 0)
+	{
+		/*call env function*/
+		return (0);
+	}
 	argv = malloc(sizeof(char *) * size);
 
 	child = fork();
