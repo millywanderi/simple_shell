@@ -15,21 +15,24 @@ int main(void)
 
 {
 	size_t buffersize = 0;
-	char *buffer = NULL, *buffer_cpy = NULL;
+	char *buffer = NULL;
 	pid_t child;
 	int status;
+	int get_line;
+	char *str = NULL;
+	char *delim = " ";
 
 	while (1)
 	{
 	printf("#cisfun$ ");
 	fflush(stdout);
-	int get_line = getline(&buffer, &buffersize, stdin);
+	get_line = getline(&buffer, &buffersize, stdin);
 
 	if (get_line == -1)
 		break;
 	buffer[strcspn(buffer, "\n")] = '\0';
 
-	buffer_cpy = strdup(buffer);
+	argument(str, delim);
 	child = fork();
 	if (child == -1)
 	{

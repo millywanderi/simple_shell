@@ -10,4 +10,6 @@
 #include <sys/wait.h>
 #include <stdio.h>
 
+char *argument(char *str, const char *delim);
+
 #endif
