@@ -10,7 +10,9 @@
 #include <sys/wait.h>
 #include <stdio.h>
 
-char *argument(char *str, const char *delim, char **argv);
+int argument();
 char *handle_path();
+void env_print(char **envi);
+extern char **environ;
 
 #endif
