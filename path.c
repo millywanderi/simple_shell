@@ -13,7 +13,7 @@
 char *handle_path()
 {
 	char *cur_path, *path_cpy, *directory;
-	char *buffer_path = malloc(sizeof(char *) * buffer_path);
+	char *buffer_path, *entry = NULL;
 	char *delim = ":";
 
 	cur_path = getenv("PATH");
@@ -23,14 +23,14 @@ char *handle_path()
 	}
 	path_cpy = strdup(cur_path);
 	directory = strtok(path_cpy, delim);
-	if (directory = NULL)
+	if (directory == NULL)
 	{
 		exit(1);
 	}
 	else
 	{
-		buffer_path;
-		sprintf(buffer_path, "%s" directory);
+		buffer_path = malloc(sizeof(char *));
+		sprintf(buffer_path, "%s/%s", directory, entry);
 		if (access(buffer_path, X_OK) == 0)
 		{
 			free(path_cpy);
@@ -39,6 +39,6 @@ char *handle_path()
 		free(buffer_path);
 		directory = strtok(NULL, delim);
 	}
-	free(path_copy);
+	free(path_cpy);
 	return (NULL);
 }

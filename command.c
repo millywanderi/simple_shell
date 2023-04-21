@@ -9,16 +9,21 @@
   * argument - A function that tokenize argument
   * @str: String
   * @delim: character of separating a string
+  * @argv: Vector argument
   * Return: Always 0
   */
 
-char *argument(char *str, const char *delim, char **argv)
+extern char **environ;
+
+int argument()
 {
-	int ac;
+	char *str = NULL;
+	char *delim;
+	char **argv;
+	char **envi;
+	int ac = 0;
 	argv = NULL;
-	/*calling path and env func*/
-	pid_t child;
-	unsigned int size = 0;
+	envi = environ;
 
 	delim = " \n";
 
@@ -40,20 +45,26 @@ char *argument(char *str, const char *delim, char **argv)
 		return (-1);
 	else if (strcpy(argv[0], "env") == 0)
 	{
-		/*call env function*/
+		env_print(envi);
 		return (0);
 	}
-	argv = malloc(sizeof(char *) * size);
-
-	child = fork();
-	if (!child)
-	{
-		if (execve(argv[0], argv, NULL) == -1)
-		{
-			perror("./command ");
-			exit(1);
-		}
-		wait(NULL);
-	}
 	return (0);
+}
+
+/**
+  * env_print - A function that prints the environment
+  * @env: array of the environment
+  */
+
+extern char **environ;
+
+void env_print(char **envi)
+{
+	envi = environ;
+
+	while (*envi != NULL)
+	{
+		printf("%s\n", *envi);
+		envi++;
+	}
 }

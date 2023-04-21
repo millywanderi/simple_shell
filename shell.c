@@ -14,13 +14,11 @@
 int main(void)
 
 {
+	int status;
 	size_t buffersize = 0;
 	char *buffer = NULL;
 	pid_t child;
-	int status;
 	int get_line;
-	char *str = NULL;
-	char *delim = " ";
 
 	while (1)
 	{
@@ -32,7 +30,10 @@ int main(void)
 		break;
 	buffer[strcspn(buffer, "\n")] = '\0';
 
-	argument(str, delim);
+	{
+		argument();
+		return (0);
+	}
 	child = fork();
 	if (child == -1)
 	{
