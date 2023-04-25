@@ -10,9 +10,14 @@
 #include <sys/wait.h>
 #include <stdio.h>
 
-int argument();
+#define SIZE 1024
+#define ARGS_COUNT 150
+
+
+void argument(char *buffer, char **argue, int *number);
 char *handle_path();
-void env_print(char **envi);
+/*int env_print(char **envi);
 extern char **environ;
+int cdir();*/
 
 #endif

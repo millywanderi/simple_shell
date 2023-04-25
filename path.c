@@ -7,38 +7,31 @@
 
 /**
  * handle_path - a function that handles a path
+ * @argue: arguments
  * Return: NULL
  */
 
-char *handle_path()
+char *handle_path(char *argue)
 {
-	char *cur_path, *path_cpy, *directory;
-	char *buffer_path, *entry = NULL;
-	char *delim = ":";
+	char *cur_path, *directory, *path_cpy;
+	char *final_path;
+	int m = 0;
 
 	cur_path = getenv("PATH");
-	if (cur_path == NULL)
-	{
-		return (NULL);
-	}
 	path_cpy = strdup(cur_path);
-	directory = strtok(path_cpy, delim);
-	if (directory == NULL)
+	directory = strtok(path_cpy, ":");
+
+	while (directory != NULL)
 	{
-		exit(1);
-	}
-	else
-	{
-		buffer_path = malloc(sizeof(char *));
-		sprintf(buffer_path, "%s/%s", directory, entry);
-		if (access(buffer_path, X_OK) == 0)
+		final_path = malloc(strlen(directory) + strlen(argue) + 2);
+		sprintf(final_path, "%s/%s", directory, argue);
+		if (access(final_path, F_OK) == 0)
 		{
 			free(path_cpy);
-			return (buffer_path);
+			return (final_path);
 		}
-		free(buffer_path);
-		directory = strtok(NULL, delim);
+		free(final_path);
+		directory = strtok(NULL, ":");
 	}
-	free(path_cpy);
 	return (NULL);
 }
