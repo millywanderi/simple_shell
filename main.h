@@ -12,12 +12,13 @@
 
 #define SIZE 1024
 #define ARGS_COUNT 150
-
+extern char **environ;
 
 void argument(char *buffer, char **argue, int *number);
 char *handle_path();
-/*int env_print(char **envi);
-extern char **environ;
-int cdir();*/
+void close_shell(void);
+void env_print(void);
+int cdir();
+
 
 #endif

@@ -12,30 +12,27 @@
  */
 
 int main(void)
-
 {
 	int status, number = 0;
-	char *buffer = NULL;
 	size_t buffersize = 0;
 	pid_t child;
-	char get_line;
-	char *argue[ARGS_COUNT];
-	char *way;
-	char *command = "$ ";
+	char get_line, *argue[ARGS_COUNT], *way, *command = "$ ", *buffer = NULL;
 
 	while (1)
 	{
 	write(STDOUT_FILENO, command, 2);
 	fflush(stdout);
 	get_line = getline(&buffer, &buffersize, stdin);
-
 	if (get_line == -1)
 		break;
 	buffer[strcspn(buffer, "\n")] = '\0';
-
+	if (strcmp(argue[0], "env") == 0)
+	{
+		env_print();
+		continue;
+	}
 	argument(buffer, argue, &number);
 	way = handle_path(argue[0]);
-
 	child = fork();
 	if (child == -1)
 	{
@@ -50,7 +47,6 @@ int main(void)
 			exit(1);
 		}
 		exit(0);
-
 	}
 	else
 		waitpid(child, &status, 0);
