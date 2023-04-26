@@ -35,16 +35,21 @@ void argument(char *buffer, char **argue, int *number)
 
 /**
   * env_print - A function that prints the environment
-  * @env: array of the environment
   */
 
-int env_print(char **envi)
+void env_print(void)
 {
+	char **envi = environ;
 	int m = 0;
 
-	while (*envi != NULL)
+	while (*envi)
 	{
-		printf("%s\n", envi[m]);
-		m++;
+		while ((*envi)[m])
+		{
+			++m;
+		}
+		write(1, *envi, m);
+		write(1, "\n", 1);
+		++envi;
 	}
 }
