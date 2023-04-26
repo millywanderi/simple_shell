@@ -25,7 +25,7 @@ char *handle_path(char *argue)
 		else
 			return (NULL);
 	}
-	if (strcmp(argue, "exit") == 0)
+	if (compare_argue(argue, "exit") == 0)
 	{
 		close_shell();
 	}

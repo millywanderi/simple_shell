@@ -26,7 +26,7 @@ int main(void)
 	if (get_line == -1)
 		break;
 	buffer[strcspn(buffer, "\n")] = '\0';
-	if (strcmp(argue[0], "env") == 0)
+	if (compare_argue(argue[0], "env") == 0)
 	{
 		env_print();
 		continue;
