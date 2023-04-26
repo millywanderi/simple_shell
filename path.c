@@ -17,6 +17,20 @@ char *handle_path(char *argue)
 	char *final_path;
 	int m = 0;
 
+	if (strncmp(argue, "/bin/", 5) == 0)
+	{
+		if (access(argue, F_OK) == 0)
+		{
+			return (argue);
+		}
+		else
+			return (NULL);
+	}
+	if (strcmp(argue, "exit") == 0)
+        {
+                close_shell();
+        }
+
 	cur_path = getenv("PATH");
 	path_cpy = strdup(cur_path);
 	directory = strtok(path_cpy, ":");
@@ -34,4 +48,13 @@ char *handle_path(char *argue)
 		directory = strtok(NULL, ":");
 	}
 	return (NULL);
+}
+
+/**
+ * close_shell - terminate the shell
+ */
+
+void close_shell(void)
+{
+	exit(0);
 }
