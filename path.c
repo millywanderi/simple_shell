@@ -26,9 +26,9 @@ char *handle_path(char *argue)
 			return (NULL);
 	}
 	if (strcmp(argue, "exit") == 0)
-        {
-                close_shell();
-        }
+	{
+		close_shell();
+	}
 
 	cur_path = getenv("PATH");
 	path_cpy = strdup(cur_path);
