@@ -12,13 +12,14 @@
 
 #define SIZE 1024
 #define ARGS_COUNT 150
+#define BUFFER_SIZE 1024
 extern char **environ;
 
 void argument(char *buffer, char **argue, int *number);
-char *handle_path();
+char *handle_path(char *argue);
 void close_shell(void);
 void env_print(void);
-int cdir();
+void cdir(void);
 
 
 #endif
