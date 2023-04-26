@@ -15,7 +15,6 @@ char *handle_path(char *argue)
 {
 	char *cur_path, *directory, *path_cpy;
 	char *final_path;
-	int m = 0;
 
 	if (strncmp(argue, "/bin/", 5) == 0)
 	{
