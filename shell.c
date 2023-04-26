@@ -14,15 +14,18 @@
 int main(void)
 
 {
-	int status;
-	size_t buffersize = 0;
+	int status, number = 0;
 	char *buffer = NULL;
+	size_t buffersize = 0;
 	pid_t child;
-	int get_line;
+	char get_line;
+	char *argue[ARGS_COUNT];
+	char *way;
+	char *command = "$ ";
 
 	while (1)
 	{
-	printf("#cisfun$ ");
+	write(STDOUT_FILENO, command, 2);
 	fflush(stdout);
 	get_line = getline(&buffer, &buffersize, stdin);
 
@@ -30,10 +33,9 @@ int main(void)
 		break;
 	buffer[strcspn(buffer, "\n")] = '\0';
 
-	{
-		argument();
-		return (0);
-	}
+	argument(buffer, argue, &number);
+	way = handle_path(argue[0]);
+
 	child = fork();
 	if (child == -1)
 	{
@@ -42,12 +44,13 @@ int main(void)
 	}
 	else if (child == 0)
 	{
-		if (execl(buffer, buffer, (char *) NULL) == -1)
+		if (execv(way, argue) == -1)
 		{
 			perror("./shell ");
 			exit(1);
 		}
 		exit(0);
+
 	}
 	else
 		waitpid(child, &status, 0);
