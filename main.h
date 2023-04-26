@@ -15,11 +15,11 @@
 #define BUFFER_SIZE 1024
 extern char **environ;
 
+int compare_argue(const char *str1, const char *str2);
 void argument(char *buffer, char **argue, int *number);
 char *handle_path(char *argue);
 void close_shell(void);
 void env_print(void);
 void cdir(void);
-
 
 #endif
