@@ -8,7 +8,8 @@
 /**
  * compare_argue - a function that compares to arguement
  * @str1: first argue
- * @str2: second argue 
+ * @str2: second argue
+ * Return: Always 0
  */
 
 int compare_argue(const char *str1, const char *str2)
@@ -18,5 +19,5 @@ int compare_argue(const char *str1, const char *str2)
 		str1++;
 		str2++;
 	}
-	return (*(const unsigned char *)str1 -*(const unsigned char *)str2);
+	return (*(const unsigned char *)str1 - *(const unsigned char *)str2);
 }
