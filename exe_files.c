@@ -1,5 +1,5 @@
 /*
- * File: shell.c
+ * File: exe_files.c
  * Auth: Justin Mwaipe, Millicent Wanderi
  */
 

@@ -1,19 +1,19 @@
 /*
- * File: shell.c
+ * File: memory.c
  * Auth: Justin Mwaipe, Millicent Wanderi
  */
 
 #include "main.h"
 
 /**
- * mng_alloc - Create memory space
+ * mng_alloc - create and allocate memory space
  * @size: Size of allocation
  * @ptr: Pointer to memory
  *
  * Return: NULL on failure, pointer on Success
  */
 
-char *mng_alloc(char *, size_t size)
+char *mng_alloc(char *ptr, size_t size)
 {
 	ptr = re_alloc(ptr, size);
 	if (!(ptr))
@@ -65,7 +65,7 @@ char *re_alloc(char *ptr, size_t new_allocsize)
 }
 
 /**
- * free_mem_ - Free memory and set head to NULL
+ * free_mem - Free memory and set head to NULL
  * @head: pointer to free
  */
 
@@ -123,7 +123,7 @@ char *_setmem(char j, unsigned int d, char *m)
 {
 	unsigned int t = 0;
 
-	whlie (t < n)
+	while (t < n)
 	{
 		m[t] = j;
 		t++;
