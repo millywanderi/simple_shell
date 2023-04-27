@@ -26,13 +26,13 @@ int main(void)
 	if (get_line == -1)
 		break;
 	buffer[strcspn(buffer, "\n")] = '\0';
-	if (compare_argue(argue[0], "env") == 0)
+	/*if (compare_argue(argue[0], "env") == 0)
 	{
 		env_print();
 		continue;
 	}
 	argument(buffer, argue, &number);
-	way = handle_path(argue[0]);
+	way = handle_path(argue[0]);*/
 	child = fork();
 	if (child == -1)
 	{
@@ -52,5 +52,6 @@ int main(void)
 		waitpid(child, &status, 0);
 	}
 	free(buffer);
+	free(way);
 	return (0);
 }

@@ -20,6 +20,6 @@ void argument(char *buffer, char **argue, int *number);
 char *handle_path(char *argue);
 void close_shell(void);
 void env_print(void);
-void cdir(void);
+size_t _strcspn(const char *str, const char *good);
 
 #endif
