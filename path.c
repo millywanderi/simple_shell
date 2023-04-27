@@ -5,55 +5,43 @@
 
 #include "main.h"
 
+char **handle_path(char *const *argue);
+
 /**
  * handle_path - a function that handles a path
- * @argue: arguments
- * Return: NULL
+ * @argue: cmd
+ * Return: array pointer
  */
 
-char *handle_path(char *argue)
+char **handle_path(char *const *argue)
 {
-	char *cur_path, *directory, *path_cpy;
-	char *final_path;
+	size_t m, count, envi = 0;
+	char **way = NULL;
+	char *refer = "PATH=";
+	size_t conc_size;
+	char *ptr_env = NULL;
 
-	if (strncmp(argue, "/bin/", 5) == 0)
+	while (environ[envi])
 	{
-		if (access(argue, F_OK) == 0)
+		if (_strncmp(refer, environ[envi], 5) == 0)
 		{
-			return (argue);
-		}
-		else
-			return (NULL);
-	}
-	if (compare_argue(argue, "exit") == 0)
-	{
-		close_shell();
-	}
+			ptr_env = &environ[envi][5];
+			count = cnt_path(ptr_env);
+			way = (char **)mng_alloc((char *)way, (sizeof(char *) * (count + 1)));
+			for (m = 0; m < count; m++)
+			{
+				conc_size = (len_way(ptr_env) + _strlen(argue[0]) + 2);
+				way[m] = mng_alloc(way[m], (sizeof(char) * conc_size));
+				_strncpy(way[m], ptr_env, len_way(ptr_env));
+				_strcat(way[m], "/");
+				_strcat(way[m], argue[0]);
 
-	cur_path = getenv("PATH");
-	path_cpy = strdup(cur_path);
-	directory = strtok(path_cpy, ":");
-
-	while (directory != NULL)
-	{
-		final_path = malloc(strlen(directory) + strlen(argue) + 2);
-		sprintf(final_path, "%s/%s", directory, argue);
-		if (access(final_path, F_OK) == 0)
-		{
-			free(path_cpy);
-			return (final_path);
+				ptr_env = (ptr_env + (len_way(ptr_env) + 1));
+			}
+			way[m] = NULL;
+			return (way);
 		}
-		free(final_path);
-		directory = strtok(NULL, ":");
+		envi++;
 	}
 	return (NULL);
-}
-
-/**
- * close_shell - terminate the shell
- */
-
-void close_shell(void)
-{
-	exit(0);
 }
