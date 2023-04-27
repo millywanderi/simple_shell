@@ -5,23 +5,24 @@
 
 #include "main.h"
 
-/**
- * main - Entry point
- *
- * Return: Always 0
- */
-
 void sig_recieve(int signal);
 
 /**
- * sig_receive - display the comd line again if [Ctrl + c]
- * @signal: attribute
+ * sig_recieve - Display the comd line again if [Ctrl + c]
+ * @signal: Attribute
  */
 
 void sig_recieve(int signal __attribute__((unused)))
 {
 	write(STDOUT_FILENO, "\n$ ", 3);
 }
+
+/**
+ * main - Entry point
+ * @ac: Count the elements in argue array
+ * @argue: Array of arguements
+ * Return: Always 0
+ */
 
 int main(int ac __attribute__((unused)), char **argue)
 {
