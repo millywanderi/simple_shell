@@ -26,7 +26,8 @@ void sig_recieve(int signal __attribute__((unused)))
 
 int main(int ac __attribute__((unused)), char **argue)
 {
-	char *buffer = NULL, **toks = NULL;
+	char *buffer = NULL;
+	char **toks = NULL;
 	size_t buffersize = 1;
 
 	while (1)

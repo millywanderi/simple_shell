@@ -79,7 +79,7 @@ int set_PWD(char *val_v)
 
 			add_memory(&stat_mem_head, environ[i]);
 			_strncpy(environ[i], name, name_len);
-			_strcat(environ[i], value);
+			_strcat(environ[i], val_v);
 
 			if (environ[i][name_len + val_len - 1] == '/')
 			{

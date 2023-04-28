@@ -21,10 +21,16 @@
 #define BUFFER_SIZE 1024
 #define TOTAL_ARGS 1024
 
-typedef struct allocation_history
+/**
+ * struct alloc_history - struct memory allocation
+ * @memory_ptr: memory pointer
+ * @next: next node
+ */
+
+typedef struct alloc_history
 {
 	char *memory_ptr;
-	struct allocation_history *next;
+	struct alloc_history *next;
 
 } memory_list;
 
@@ -87,7 +93,7 @@ size_t dig_cnt(size_t number);
 char *_atoi(size_t num, char *mem, int val);
 
 /*major functions*/
-char *str_tok(char *tok);
+char **str_tok(char *tok);
 size_t tok_count(char *str);
 size_t tok_len(char *str, size_t speci);
 int alloc_mem(char *mem);
