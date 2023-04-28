@@ -54,7 +54,9 @@ int cd_builtin(char *const *argue)
 int chd_HOME(void)
 {
 	char *dir_tag = NULL;
+
 	dir_tag = target_get("HOME=");
+
 	if (dir_tag)
 	{
 		if (chdir(dir_tag) == 0)
@@ -77,19 +79,21 @@ int chd_HOME(void)
 int chd_cur(void)
 {
 	char *dir_tag = NULL;
+
 	dir_tag = target_get("PWD=");
+
 	if (dir_tag)
-        {
-                if (chdir(dir_tag) == 0)
-                {
-                        set_OLDPWD();
-                        set_PWD(dir_tag);
-                        return (0);
-                }
-                else
-                        return (-1);
-        }
-        return (-1);
+	{
+		if (chdir(dir_tag) == 0)
+		{
+			set_OLDPWD();
+			set_PWD(dir_tag);
+			return (0);
+		}
+		else
+			return (-1);
+	}
+	return (-1);
 }
 
 /**
@@ -103,46 +107,21 @@ int chd_parent(void)
 	size_t j;
 
 	dir_tag = target_get("PWD=");
-        if (dir_tag)
+
+	if (dir_tag)
 	{
 		for (j = _strlen(dir_tag); dir_tag[j] != '/';)
 			j--;
-		for (;dir_tag[j]; j++)
+
+		for (; dir_tag[j]; j++)
 			dir_tag[j] = '\0';
 
 		if (chdir(dir_tag) == 0)
-                {
-                        set_OLDPWD();
-                        set_PWD(dir_tag);
-                        return (0);
-                }
-	}
-	return (-1)
-}
-
-/**
- * cd_previous - change to previous directory
- * Return: 0 on Success, 1 on Failure
- */
-
-int cd_previous(void)
-{
-	char *dir_tag = NULL;
-
-	dir_tag = target_get("OLDPWD=");
-        if (dir_tag)
-	{
-		if (chdir(dir_tag) == 0)
-                {
-                        set_OLDPWD();
-                        set_PWD(dir_tag);
-
-			write(STDOUT_FILENO, dir_tag, (_strlen(dir_tag)));
-			write(STDOUT_FILENO, "\n", 1);
+		{
+			set_OLDPWD();
+			set_PWD(dir_tag);
 			return (0);
 		}
-		else
-			return (-1);
 	}
 	return (-1);
 }
@@ -160,6 +139,7 @@ int chd_user(char *argue)
 	size_t user_len = _strlen(argue);
 
 	user_dir = mng_alloc(user_dir, (sizeof(char) * (6 + user_len)));
+
 	if (!user_dir)
 		return (-1);
 
@@ -176,4 +156,3 @@ int chd_user(char *argue)
 	errno = ENOENT;
 	return (-1);
 }
-
