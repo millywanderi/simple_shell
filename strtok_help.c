@@ -18,12 +18,15 @@ size_t tok_count(char *str);
 size_t tok_len(char *str, size_t speci)
 {
 	size_t len = 0;
-	size_t now = 0, cur = 0;
+	size_t now = 0;
+	size_t cur = 0;
 
 	while (cur < speci)
 	{
 		while (str[now] == ' ' || str[now] == '\t')
+		{
 			now++;
+		}
 		if (str[now] != '\0' && str[now] != ' ' && str[now] != '\t')
 		{
 			cur++;
@@ -46,7 +49,8 @@ size_t tok_len(char *str, size_t speci)
 
 size_t tok_count(char *str)
 {
-	size_t amount = 0, m = 0;
+	size_t amount = 0;
+	size_t m = 0;
 
 	while (str[m] != '\0')
 	{

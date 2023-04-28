@@ -18,7 +18,7 @@ ssize_t buffer_cpy(char **dest, char **src, ssize_t *begin);
   * Return: Always 0
   */
 
-ssize_t buffer_cpy(char **dest, char **src, ssize_t *begin)
+ssize_t buffer_cpy(char **dest, char *src, ssize_t *begin)
 {
 	ssize_t count_cpy = 0;
 	ssize_t m;
@@ -40,9 +40,10 @@ ssize_t buffer_cpy(char **dest, char **src, ssize_t *begin)
 		if (!(*dest))
 			return (1);
 		_strncpy((*dest + *begin), src, (count_cpy));
-		*begin += count_cpy;
+		*begin = *begin + count_cpy;
 		return (count_cpy);
 	}
+	return (count_cpy);
 }
 
 /**
@@ -56,7 +57,9 @@ int alloc_mem(char *mem)
 	int btz = 0;
 
 	while (buffer[btz])
+	{
 		btz++;
+	}
 	return (btz);
 }
 
@@ -87,7 +90,7 @@ void shift_buf(char *mem, ssize_t n)
 
 ssize_t get_line(char **buffer)
 {
-	ssize_t count, cpy = 0;
+	ssize_t cpy = 0, count = 0;
 	ssize_t begin = 0;
 	static char line[TOTAL_ARGS];
 	static ssize_t total;
@@ -98,7 +101,7 @@ ssize_t get_line(char **buffer)
 		{
 			if (count == -1)
 				return (-1);
-			total += count;
+			total = total + count;
 			line[count] = '\0';
 			cpy = buffer_cpy(&(*buffer), line, &begin);
 			if (cpy < count)
