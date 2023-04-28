@@ -54,7 +54,7 @@ int main(int ac __attribute__((unused)), char **argue)
 		if (toks)
 		{
 			if ((func_exec(toks)) == -1)
-				error_print(buffersize, argue[0], toks);
+				print_error(buffersize, argue[0], toks);
 		}
 		free_mem(&memory_head);
 
