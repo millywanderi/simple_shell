@@ -35,7 +35,7 @@ int _itoi(char *str)
 			return (-1);
 		}
 	}
-	if (str > 2147183647)
+	if (ans > 2147483647)
 	{
 		return (-1);
 	}
