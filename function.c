@@ -6,8 +6,8 @@
 #include "main.h"
 
 char *_revstr(char *str);
-char *_strcat(char *dest, char *src);
-char *_strncpy(char *s1, char *s2, size_t n);
+char *_strcat(char *dest, const char *src);
+char *_strncpy(char *s1, const char *s2, size_t n);
 
 /**
   * _revstr - a function that reverses a string
@@ -17,20 +17,29 @@ char *_strncpy(char *s1, char *s2, size_t n);
 
 char *_revstr(char *str)
 {
-	int m = 0, n = 0, len = 0, size = 0;
-	char *reverse = str;
+	int l = 0;
+	int r = 0;
+	int len = 0;
+	int size = 0;
 	char mem;
 
 	len = _strlen(str);
+
 	if ((len % 2) == 0)
+	{
 		size = (len / 2);
+	}
 	else
 		size = (len - 1) / 2;
-	for (m = len - 1; m >= size; n++, m--)
+
+	r = len - 1;
+	while (l < size && r >= size)
 	{
-		mem = reverse[n];
-		reverse[n] = str[m];
-		str[m] = mem;
+		mem = str[l];
+		str[l] = str[r];
+		str[r] = mem;
+		l++;
+		r--;
 	}
 	return (str);
 }
@@ -43,18 +52,15 @@ char *_revstr(char *str)
   * Return: s1
   */
 
-char *_strncpy(char *s1, char *s2, size_t n)
+char *_strncpy(char *s1, const char *s2, size_t n)
 {
 	size_t m = 0;
 
-	while (m < n)
+	while (m < n && s2[m] != '\0')
 	{
-		if (s2[m] == '\0')
-			break;
 		s1[m] = s2[m];
 		m++;
 	}
-	s1[m] = '\0';
 	while (m < n)
 	{
 		s1[m] = '\0';
@@ -70,14 +76,16 @@ char *_strncpy(char *s1, char *s2, size_t n)
   * Return: pointer of the concatenated string
   */
 
-char *_strcat(char *dest, char *src)
+char *_strcat(char *dest, const char *src)
 {
 	int m = 0;
-	int n = 0;
+	int n;
 
-	for (; dest[m] != '\0')
+	while (dest[m] != '\0')
+	{
 		m++;
-	for (; src[n] != '\0')
+	}
+	for (n = 0; src[n] != '\0')
 	{
 		dest[m] = src[n];
 		n++;
