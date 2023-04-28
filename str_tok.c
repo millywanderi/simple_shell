@@ -5,7 +5,7 @@
 
 #include "main.h"
 
-char *str_tok(char *tok);
+char **str_tok(char *tok);
 
 /**
   * str_tok - a function that tokenize
@@ -13,7 +13,7 @@ char *str_tok(char *tok);
   * Return: array
   */
 
-char *str_tok(char *tok)
+char **str_tok(char *tok)
 {
 	size_t amount, size;
 	char **token = NULL;
@@ -31,7 +31,7 @@ char *str_tok(char *tok)
 		return (NULL);
 	while (cur <= amount)
 	{
-		len = tok_len(tok, curr);
+		len = tok_len(tok, cur);
 		size = (len + 1) * (sizeof(char));
 		if (token[m] == NULL)
 		{

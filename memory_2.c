@@ -22,5 +22,5 @@ void free_stat_mem(memory_list **head)
 			free(temp->memory_ptr);
 		free(temp);
 	}
-	*head = NULL
+	*head = NULL;
 }
