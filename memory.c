@@ -119,7 +119,7 @@ memory_list *add_memory(memory_list **head, char *ptr)
  * Return: pointer to memory area
  */
 
-char *_setmem(char j, unsigned int d, char *m)
+char *_setmem(char *m, char j, unsigned int d)
 {
 	unsigned int t = 0;
 

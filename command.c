@@ -149,7 +149,7 @@ int chd_user(char *argue)
 	if (chdir(user_dir) == 0)
 	{
 		set_OLDPWD();
-		set_PWD(userdir);
+		set_PWD(user_dir);
 		return (0);
 	}
 
