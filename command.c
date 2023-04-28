@@ -6,50 +6,174 @@
 #include "main.h"
 
 /**
-  * argument - A function that tokenize argument
-  * @buffer: pointer array of arguments
-  * @number: argument count
+  * cd_builtin - A function that change directory
   * @argue: Vector argument
-  * Return: Always 0
+  * Return: 0 on Success, -1 on fail
   */
 
-void argument(char *buffer, char **argue, int *number)
+int cd_builtin(char *const *argue)
 {
-	char *tok;
-	*number = 0;
-
-	tok = strtok(buffer, " ");
-	while (tok != NULL && *number < ARGS_COUNT - 1)
+	if (argue[1] == NULL || !(_strcmp(argue[1], "~")))
 	{
-
-		argue[(*number)++] = tok;
-		tok = strtok(NULL, " ");
+		if (chd_HOME())
+			return (-1);
 	}
-	if (*number == ARGS_COUNT - 1 && strtok(NULL, " ") != NULL)
+	else if (!(_strcmp(argue[1], ".")))
 	{
-		fprintf(stderr, "Error\n");
-		exit(1);
+		if (chd_cur())
+			return (-1);
 	}
-	argue[*number] = NULL;
+	else if (!(_strcmp(argue[1], "..")))
+	{
+		if (chd_parent())
+			return (-1);
+	}
+	else if (!(_strcmp(argue[1], "-")))
+	{
+		if (cd_previous())
+			return (-1);
+	}
+	else if ((!(_strncmp(argue[1], "~", 1)) && (argue[1][1] != '\0')))
+	{
+		if (chd_user(argue[1]))
+			return (-1);
+	}
+	else
+	{
+		if (chd_arg(argue[1]))
+			return (-1);
+	}
+	return (0);
 }
 
 /**
-  * env_print - A function that prints the environment
-  */
+ * chd_HOME - change home directory
+ * Return: 0 on Success, -1 on Failure
+ */
 
-void env_print(void)
+int chd_HOME(void)
 {
-	char **envi = environ;
-	int m = 0;
-
-	while (*envi)
+	char *dir_tag = NULL;
+	dir_tag = target_get("HOME=");
+	if (dir_tag)
 	{
-		while ((*envi)[m])
+		if (chdir(dir_tag) == 0)
 		{
-			++m;
+			set_OLDPWD();
+			set_PWD(dir_tag);
+			return (0);
 		}
-		write(1, *envi, m);
-		write(1, "\n", 1);
-		++envi;
+		else
+			return (-1);
 	}
+	return (-1);
 }
+
+/**
+ * chd_cur - change home directory
+ * Return: 0 on Success, -1 on Failure
+ */
+
+int chd_cur(void)
+{
+	char *dir_tag = NULL;
+	dir_tag = target_get("PWD=");
+	if (dir_tag)
+        {
+                if (chdir(dir_tag) == 0)
+                {
+                        set_OLDPWD();
+                        set_PWD(dir_tag);
+                        return (0);
+                }
+                else
+                        return (-1);
+        }
+        return (-1);
+}
+
+/**
+ * chd_parent - change to parent directory
+ * Return: 0 on Success, 1 on Failure
+ */
+
+int chd_parent(void)
+{
+	char *dir_tag = NULL;
+	size_t j;
+
+	dir_tag = target_get("PWD=");
+        if (dir_tag)
+	{
+		for (j = _strlen(dir_tag); dir_tag[j] != '/';)
+			j--;
+		for (;dir_tag[j]; j++)
+			dir_tag[j] = '\0';
+
+		if (chdir(dir_tag) == 0)
+                {
+                        set_OLDPWD();
+                        set_PWD(dir_tag);
+                        return (0);
+                }
+	}
+	return (-1)
+}
+
+/**
+ * cd_previous - change to previous directory
+ * Return: 0 on Success, 1 on Failure
+ */
+
+int cd_previous(void)
+{
+	char *dir_tag = NULL;
+
+	dir_tag = target_get("OLDPWD=");
+        if (dir_tag)
+	{
+		if (chdir(dir_tag) == 0)
+                {
+                        set_OLDPWD();
+                        set_PWD(dir_tag);
+
+			write(STDOUT_FILENO, dir_tag, (_strlen(dir_tag)));
+			write(STDOUT_FILENO, "\n", 1);
+			return (0);
+		}
+		else
+			return (-1);
+	}
+	return (-1);
+}
+
+/**
+ * chd_user - move to user home
+ * @argue: User name
+ *
+ * Return: 0 on Success, 1 on Failure
+ */
+
+int chd_user(char *argue)
+{
+	char *user_dir = NULL;
+	size_t user_len = _strlen(argue);
+
+	user_dir = mng_alloc(user_dir, (sizeof(char) * (6 + user_len)));
+	if (!user_dir)
+		return (-1);
+
+	_strncpy(user_dir, "/home/", 6);
+	_strcat(user_dir, &argue[1]);
+
+	if (chdir(user_dir) == 0)
+	{
+		set_OLDPWD();
+		set_PWD(userdir);
+		return (0);
+	}
+
+	errno = ENOENT;
+	return (-1);
+}
+
