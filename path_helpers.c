@@ -22,7 +22,9 @@ size_t len_way(char *ptr_env)
 	if (ptr_env)
 	{
 		while (ptr_env[m] != ':' && ptr_env[m] != '\0')
+		{
 			m++;
+		}
 	}
 	return (m);
 }
@@ -38,14 +40,13 @@ size_t check_path(char *const *argue)
 	size_t pathname = 0;
 	size_t m = 0;
 
-	while (argue[0][m])
+	for (; argue[0][m]; m++)
 	{
 		if (argue[0][m] == '/')
 		{
 			pathname = 1;
 			break;
 		}
-		m++
 	}
 	return (pathname);
 }
@@ -58,19 +59,20 @@ size_t check_path(char *const *argue)
 
 size_t cnt_path(char *way)
 {
-	size_t m;
+	size_t m = 0;
 	size_t count = 0;
 
 	if (!way)
 	{
 		return (0);
 	}
-	for (m = 0; way[m]; m++)
+	while (way[m])
 	{
 		if (way[m + 1] == ':' || way[m + 1] == '\0')
 		{
 			count++;
 		}
+		m++;
 	}
 	return (count);
 }
