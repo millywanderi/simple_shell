@@ -52,33 +52,33 @@ int chd_arg(char *dirg)
 
 	if (chdir(dirg) == 0)
 	{
-	if  (check_path(&dirg))
-	{
-		set_OLDPWD();
-		set_PWD(dirg);
-		return (0);
-	}
-	else
-	{
-		dir_tag = target_get("PWD=");
-		length = (_strlen(dir_tag) + _strlen(dirg));
-		path_array = mng_alloc(path_array, (sizeof(char) * (len + 2)));
-
-		if (!path_array)
+		if (check_path(&dirg))
 		{
-			return (-1);
+			set_OLDPWD();
+			set_PWD(dirg);
+			return (0);
 		}
-		_strncpy(path_array, dir_tag, _strlen(dir_tag));
-		_strcat(path_array, "/");
-		_strcat(path_array, dirg);
-		set_OLDPWD();
-		set_PWD(dir_tag);
+		else
+		{
+			dir_tag = target_get("PWD=");
+			length = (_strlen(dir_tag) + _strlen(dirg));
+			path_array = mng_alloc(path_array, (sizeof(char) * (length + 2)));
 
-		return (0);
+			if (!path_array)
+			{
+				return (-1);
+			}
+			_strncpy(path_array, dir_tag, _strlen(dir_tag));
+			_strcat(path_array, "/");
+			_strcat(path_array, dirg);
+			set_OLDPWD();
+			set_PWD(dir_tag);
+
+			return (0);
+		}
 	}
 	errno = ENOENT;
 	return (-1);
-	}
 }
 
 /**
@@ -106,5 +106,6 @@ int cd_previous(void)
 		else
 			return (-1);
 	}
+
 	return (-1);
 }

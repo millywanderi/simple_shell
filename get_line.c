@@ -8,7 +8,7 @@
 int alloc_mem(char *mem);
 void shift_buf(char *mem, ssize_t n);
 ssize_t get_line(char **buffer);
-ssize_t buffer_cpy(char **dest, char **src, ssize_t *begin);
+ssize_t buffer_cpy(char **dest, char *src, ssize_t *begin);
 
 /**
   * buffer_cpy - a function that copies buffer untill '\0'
@@ -23,20 +23,20 @@ ssize_t buffer_cpy(char **dest, char *src, ssize_t *begin)
 	ssize_t count_cpy = 0;
 	ssize_t m;
 
-	for (m = 0; src[m] != '\n' && scr[m] != '\0'; m++)
+	for (m = 0; src[m] != '\n' && src[m] != '\0'; m++)
 		count_cpy++;
 	if (src[m] == '\n')
 	{
 		*dest = mng_alloc(*dest, (sizeof(char) * (count_cpy + *begin + 1)));
 		if (!(*dest))
 			return (-1);
-		_strncpy((*dest + *begin, src, count_cpy));
+		_strncpy((*dest + *begin), src, count_cpy);
 		shift_buf(src, (count_cpy + 1));
 		return (count_cpy);
 	}
 	if (src[m] == '\0')
 	{
-		*dest = mngg_alloc(*dest, (sizeof(char) * (count_cpy + *begin + 1)));
+		*dest = mng_alloc(*dest, (sizeof(char) * (count_cpy + *begin + 1)));
 		if (!(*dest))
 			return (1);
 		_strncpy((*dest + *begin), src, (count_cpy));
@@ -56,7 +56,7 @@ int alloc_mem(char *mem)
 {
 	int btz = 0;
 
-	while (buffer[btz])
+	while (mem[btz])
 	{
 		btz++;
 	}

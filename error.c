@@ -18,7 +18,7 @@ void print_error(size_t loop, char *argue, char **toks)
 	size_t len_argue = _strlen(argue);
 	char *tag = NULL, *custom = NULL, *count = NULL;
 	size_t len_custom, len_tag;
-	size_t dig = dig_count(loop);
+	size_t dig = dig_cnt(loop);
 	size_t alloc_sum = len_argue + dig + len_toks + len_toks2 + 6;
 
 	switch (error_msg)
@@ -43,7 +43,7 @@ void print_error(size_t loop, char *argue, char **toks)
 	tag = mng_alloc(tag, sizeof(char) * alloc_sum);
 	_strncpy(tag, argue, len_argue);
 	_strcat(tag, ": ");
-	_strcat(tag, loop);
+	_strcat(tag, custom);
 	_strcat(tag, ": ");
 	_strcat(tag, toks[0]);
 	_strcat(tag, custom);
