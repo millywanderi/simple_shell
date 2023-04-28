@@ -24,7 +24,7 @@ void print_error(size_t loop, char *argue, char **toks)
 	switch (err_msg)
 	{
 		case (2):
-			custom = mng_alloc(custom, (sizeof(char) * 12));
+			custom = mng_alloc(custom, (sizeof(char) * 8));
 			custom = ": failed\0";
 			break;
 		case (3):
