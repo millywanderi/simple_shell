@@ -36,7 +36,7 @@ int exiting(char * const *argue)
 	{
 		free_mem(&memory_head);
 		free_stat_mem(&stat_mem_head);
-		exit(SUCCESS);
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{
@@ -45,7 +45,7 @@ int exiting(char * const *argue)
 		switch (ans)
 		{
 			case (-1):
-				return (FAILURE);
+				return (EXIT_FAILURE);
 			default:
 				free_mem(&memory_head);
 				free_stat_mem(&stat_mem_head);

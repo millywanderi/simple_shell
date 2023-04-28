@@ -49,7 +49,7 @@ char *mng_alloc(char *ptr, size_t size);
 char *re_alloc(char *ptr, size_t new_allocsize);
 void free_mem(memory_list **head);
 memory_list *add_memory(memory_list **head, char *ptr);
-char *_setmem(char j, unsigned int d, char *m);
+char *_setmem(char *m, char j, unsigned int d);
 void free_stat_mem(memory_list **head);
 
 /* extern variables */
@@ -64,7 +64,7 @@ size_t error_msg;
 /* execute */
 int func_exec(char *const *argue);
 int external_cmd(char *const *argue);
-int builtin(char *const *argue);
+int cd_builtin(char *const *argue);
 int builtin(char *const *argue);
 
 /* change dir command.c */
@@ -93,7 +93,7 @@ size_t tok_len(char *str, size_t speci);
 int alloc_mem(char *mem);
 void shift_buf(char *mem, ssize_t n);
 ssize_t get_line(char **buffer);
-ssize_t buffer_cpy(char **dest, char **src, ssize_t *begin);
+ssize_t buffer_cpy(char **dest, char *src, ssize_t *begin);
 char **handle_path(char *const *argue);
 size_t check_path(char *const *argue);
 size_t len_way(char *ptr_env);

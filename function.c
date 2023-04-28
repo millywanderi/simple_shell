@@ -85,10 +85,9 @@ char *_strcat(char *dest, const char *src)
 	{
 		m++;
 	}
-	for (n = 0; src[n] != '\0')
+	for (n = 0; src[n] != '\0'; n++)
 	{
 		dest[m] = src[n];
-		n++;
 		m++;
 	}
 	dest[m] = '\0';
