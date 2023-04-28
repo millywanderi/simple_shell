@@ -105,7 +105,7 @@ memory_list *add_memory(memory_list **head, char *ptr)
 
 	new_node->memory_ptr = ptr;
 	new_node->next = *head;
-	*head = new;
+	*head = new_node;
 
 	return (*head);
 }
@@ -123,7 +123,7 @@ char *_setmem(char *m, char j, unsigned int d)
 {
 	unsigned int t = 0;
 
-	while (t < n)
+	while (t < d)
 	{
 		m[t] = j;
 		t++;
